@@ -17,5 +17,5 @@ for i in range(1, 2):
     rule = generator.create_rule()
     print("Rule #" + str(i))
     pp.pprint(rule)
-    sender.send(rule)
+    #sender.send(rule)
 

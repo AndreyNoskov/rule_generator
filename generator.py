@@ -94,7 +94,7 @@ class Generator:
                         ip_address.append(int(octets[octet]))
             ip_str = str(ip_address[0])
             for octet in range(1, 4):
-                ip_str += ":" + str(ip_address[octet])
+                ip_str += "." + str(ip_address[octet])
             rule.update({"src-ip": ip_str})
         else:
             pass
@@ -126,7 +126,7 @@ class Generator:
                         ip_address.append(int(octets[octet]))
             ip_str = str(ip_address[0])
             for octet in range(1, 4):
-                ip_str += ":" + str(ip_address[octet])
+                ip_str += "." + str(ip_address[octet])
             rule.update({"dst-ip": ip_str})
         else:
             pass
