@@ -1,5 +1,5 @@
 import requests
-
+import json
 
 class Sender:
 
@@ -13,10 +13,9 @@ class Sender:
 
     def send(self, rule):
         url = 'http://' + self.ip_address + ":" + self.port + '/wm/firewall/rules/json'
-        r = requests.post(url, data=rule)
+        r = requests.post(url, data=json.dumps(rule))
         print('-------Response:-------')
         print(r.text)
-        print(r.json)
         print('-----------------------')
 
 

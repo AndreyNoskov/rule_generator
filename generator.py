@@ -12,10 +12,10 @@ class Generator:
     def create_rule(self):
         """ Create rule based on config file """
         rule = {}
-        # self.create_switch_id(rule)
-        # self.create_src_inport(rule)
-        # self.create_src_mac(rule)
-        # self.create_dst_mac(rule)
+        self.create_switch_id(rule)
+        self.create_src_inport(rule)
+        self.create_src_mac(rule)
+        self.create_dst_mac(rule)
         self.create_dst_ip(rule)
         self.create_src_ip(rule)
         return rule
