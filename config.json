@@ -1,0 +1,79 @@
+{
+  "controller": {
+    "ip": "192.168.17.203",
+    "port": "8080"
+  },
+
+  "rule_generator": {
+    "switch_id": {
+      "probability" : 0.9,
+      "list" : ["1", "2", "3"]
+    },
+
+    "src_inport" : {
+      "probability" : 0.9,
+      "min_value" : 0,
+      "max_value" : 23
+    },
+
+    "src_mac"  : {
+      "probability" : 0.6,
+      "list_vendor_id" : [
+        ["0x00", "0x24", "0x81"]
+      ]
+    },
+
+    "dst_mac"  : {
+      "probability" : 0.6,
+      "list_vendor_id" : [
+        ["0x00", "0x24", "0x81"]
+      ]
+    },
+
+    "dl_type"  : {
+      "probability" : 0.01,
+      "values" : ["IPv4", "ARP"]
+    },
+
+    "src_ip"   : {
+      "probability" : 0.1,
+      "is_local" : 0.2,
+      "octets" : {
+        "A": "any",
+        "B": "any",
+        "C": "any",
+        "D": "any",
+        "M": [0, 8, 16, 24, 32]
+      }
+    },
+
+    "dst_ip"   : {
+      "probability" : 0.6,
+      "is_local" : 0.2,
+      "octets" : {
+        "A": "any",
+        "B": "any",
+        "C": "any",
+        "D": "any",
+        "M": [0, 8, 16, 24, 32]
+      }
+    },
+
+    "nw_proto" : {
+      "ICMP" : 0.1,
+      "TCP"  : 0.5,
+      "UDP"  : 0.4
+    },
+    "tp_src"   : 0.5,
+    "tp_dst"   : 0.5,
+    "priority" : {
+      "probability": 0.2,
+      "min_value": 1,
+      "max_value": 15
+    },
+    "action" : {
+      "probability" : 0.5,
+      "values" : ["ALLOW", "DENY"]
+    }
+  }
+}
