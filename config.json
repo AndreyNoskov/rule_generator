@@ -1,21 +1,23 @@
 {
   "controller": {
     "ip": "192.168.17.203",
-    "port": "8080"
+    "port": "8080",
+    "switch_id": [],
+    "local_ip": []
   },
 
   "rule_generator": {
     "switch_id": {
       "probability" : 0.9,
-      "list" : ["00:00:00:00:00:00:00:01",
-                "00:00:00:00:00:00:00:02",
-                "00:00:00:00:00:00:00:03"]
+      "def_list" : ["00:00:00:00:00:00:00:01",
+                    "00:00:00:00:00:00:00:02",
+                    "00:00:00:00:00:00:00:03"]
     },
 
     "src_inport" : {
       "probability" : 0.9,
-      "min_value" : 0,
-      "max_value" : 23
+      "min_value" : 1,
+      "max_value" : 24
     },
 
     "src_mac"  : {
@@ -38,27 +40,13 @@
     },
 
     "src_ip"   : {
-      "probability" : 0.1,
-      "is_local" : 0.2,
-      "octets" : {
-        "A": "any",
-        "B": "any",
-        "C": "any",
-        "D": "any",
-        "M": [0, 8, 16, 24, 32]
-      }
+      "probability" : 0.9,
+      "is_local" : 0.8
     },
 
     "dst_ip"   : {
       "probability" : 0.6,
-      "is_local" : 0.2,
-      "octets" : {
-        "A": "any",
-        "B": "any",
-        "C": "any",
-        "D": "any",
-        "M": [0, 8, 16, 24, 32]
-      }
+      "is_local" : 0.8
     },
 
     "nw_proto" : {
@@ -70,7 +58,7 @@
     "tp_dst"   : 0.5,
 
     "priority" : {
-      "probability": 0.2,
+      "probability": 0.8,
       "values" :{
         "min_value": 1,
         "max_value": 15

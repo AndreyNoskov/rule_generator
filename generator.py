@@ -28,13 +28,11 @@ class Generator:
         list of available values """
         prob = self.config["rule_generator"]["switch_id"]["probability"]
         if random.random() > prob:
-            list_of_switches = self.config["rule_generator"]["switch_id"]["list"]
-            if len(list_of_switches) == 0:
-                pass
+            if len(self.config["controller"]["switch_id"]) == 0:
+                list_of_switches = self.config["rule_generator"]["switch_id"]["def_list"]
             else:
-                rule.update({"switchid": random.choice(list_of_switches)})
-        else:
-            pass
+                list_of_switches = self.config["controller"]["switch_id"]
+            rule.update({"switchid": random.choice(list_of_switches)})
 
     def create_src_inport(self, rule):
         """ Create switch_id field of firewall rule if generated number greater
@@ -72,66 +70,28 @@ class Generator:
     def create_src_ip(self, rule):
         """ Create src_ip field of firewall rule if generated number greater
             then config probability or pass otherwise. """
-        prob = self.config["rule_generator"]["src_ip"]["probability"]
-        ip_address = []
-        if random.random() > prob:
-            octets = self.config["rule_generator"]["src_ip"]["octets"]
+        if random.random() > self.config["rule_generator"]["src_ip"]["probability"]:
             if random.random() > self.config["rule_generator"]["src_ip"]["is_local"]:
-                for octet in ["A", "B", "C", "D"]:
-                    if octets[octet] == "any":
-                        ip_address.append(random.randint(0, 256))
-                    else:
-                        ip_address.append(int(octets[octet]))
-            else:
-                if random.random() > 0.5:
-                    ip_address.append(192)
-                    ip_address.append(168)
+                if len(self.config["controller"]["local_ip"]) != 0:
+                    ip = random.choice(self.config["controller"]["local_ip"])
                 else:
-                    ip_address.append(10)
-                    ip_address.append(0)
-                for octet in ["C", "D"]:
-                    if octets[octet] == "any":
-                        ip_address.append(random.randint(0, 255))
-                    else:
-                        ip_address.append(int(octets[octet]))
-            ip_str = str(ip_address[0])
-            for octet in range(1, 4):
-                ip_str += "." + str(ip_address[octet])
-            rule.update({"src-ip": ip_str})
-        else:
-            pass
+                    ip = generate_random_local_ip()
+            else:
+                ip = generate_random_wide_ip()
+            rule.update({"src-ip": ip})
 
     def create_dst_ip(self, rule):
         """ Create dst_ip field of firewall rule if generated number greater
             then config probability or pass otherwise. """
-        prob = self.config["rule_generator"]["dst_ip"]["probability"]
-        ip_address = []
-        if random.random() > prob:
-            octets = self.config["rule_generator"]["dst_ip"]["octets"]
+        if random.random() > self.config["rule_generator"]["dst_ip"]["probability"]:
             if random.random() > self.config["rule_generator"]["dst_ip"]["is_local"]:
-                for octet in ["A", "B", "C", "D"]:
-                    if octets[octet] == "any":
-                        ip_address.append(random.randint(0, 255))
-                    else:
-                        ip_address.append(int(octets[octet]))
-            else:
-                if random.random() > 0.5:
-                    ip_address.append(192)
-                    ip_address.append(168)
+                if len(self.config["controller"]["local_ip"]) != 0:
+                    ip = random.choice(self.config["controller"]["local_ip"])
                 else:
-                    ip_address.append(10)
-                    ip_address.append(0)
-                for octet in ["C", "D"]:
-                    if octets[octet] == "any":
-                        ip_address.append(random.randint(0, 256))
-                    else:
-                        ip_address.append(int(octets[octet]))
-            ip_str = str(ip_address[0])
-            for octet in range(1, 4):
-                ip_str += "." + str(ip_address[octet])
-            rule.update({"dst-ip": ip_str})
-        else:
-            pass
+                    ip = generate_random_local_ip()
+            else:
+                ip = generate_random_wide_ip()
+            rule.update({"dst-ip": ip})
 
     def create_action(self, rule):
         """ Create action "ALLOW" field of firewall rule if generated number greater

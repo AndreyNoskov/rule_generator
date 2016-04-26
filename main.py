@@ -1,6 +1,7 @@
 import json
 from generator import Generator
 from sender import Sender
+from updater import Updater
 import pprint
 
 
@@ -9,10 +10,16 @@ with open('config.json') as config_file:
 
 generator = Generator(config)
 sender = Sender(config)
+updater = Updater(config)
+
+updater.update_switches()
+updater.update_ips()
 
 pp = pprint.PrettyPrinter(indent=4)
 
-for i in range(1, 11):
+# pp.pprint(config)
+
+for i in range(1, 2):
     rule = generator.create_rule()
     print("Rule #" + str(i))
     pp.pprint(rule)
