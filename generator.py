@@ -112,3 +112,16 @@ class Generator:
             range_values = self.config["rule_generator"]["priority"]["values"]
             value = random.randint(range_values["min_value"], range_values["max_value"])
             rule.update({"priority": value})
+
+    def create_nw_proto(self, rule):
+        """ Create nw-proto field of firewall rule if generated number greater
+            then config probability or pass otherwise. """
+        nw_proto = self.config["rule_generator"]["nw_proto"]
+        if random.random() > nw_proto["probability"]:
+            rnd_val = random.random()
+            if 0 <= rnd_val < nw_proto["values"]["ICMP"]:
+                rule.update({"nw-proto": "ICMP"})
+            if nw_proto["values"]["ICMP"] <= rnd_val < nw_proto["values"]["TCP"]:
+                rule.update({"nw-proto": "TCP"})
+            if nw_proto["values"]["TCP"] <= rnd_val <= nw_proto["values"]["UDP"]:
+                rule.update({"nw-proto": "UDP"})

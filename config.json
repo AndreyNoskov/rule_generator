@@ -50,12 +50,21 @@
     },
 
     "nw_proto" : {
-      "ICMP" : 0.1,
-      "TCP"  : 0.5,
-      "UDP"  : 0.4
+      "probability" : 0.8,
+      "values": {
+        "ICMP" : 0.1,
+        "TCP"  : 0.6,
+        "UDP"  : 1
+      }
     },
-    "tp_src"   : 0.5,
-    "tp_dst"   : 0.5,
+
+    "tp_src" : {
+      "probability" : 0.5
+    },
+
+    "tp_dst" : {
+      "probability" : 0.5
+    },
 
     "priority" : {
       "probability": 0.8,
