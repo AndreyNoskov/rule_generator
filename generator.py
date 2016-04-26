@@ -19,6 +19,7 @@ class Generator:
         self.create_dst_ip(rule)
         self.create_src_ip(rule)
         self.create_action(rule)
+        self.create_priority(rule)
         return rule
 
     def create_switch_id(self, rule):
