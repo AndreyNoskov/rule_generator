@@ -16,6 +16,6 @@ class Sender:
         r = requests.post(url, data=json.dumps(rule))
         print('-------Response:-------')
         print(r.text)
-        print('-----------------------')
+        print('-----------------------\n')
 
 

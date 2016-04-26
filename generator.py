@@ -18,6 +18,7 @@ class Generator:
         self.create_dst_mac(rule)
         self.create_dst_ip(rule)
         self.create_src_ip(rule)
+        self.create_action(rule)
         return rule
 
     def create_switch_id(self, rule):
@@ -89,7 +90,7 @@ class Generator:
                     ip_address.append(0)
                 for octet in ["C", "D"]:
                     if octets[octet] == "any":
-                        ip_address.append(random.randint(0, 256))
+                        ip_address.append(random.randint(0, 255))
                     else:
                         ip_address.append(int(octets[octet]))
             ip_str = str(ip_address[0])
@@ -109,7 +110,7 @@ class Generator:
             if random.random() > self.config["rule_generator"]["dst_ip"]["is_local"]:
                 for octet in ["A", "B", "C", "D"]:
                     if octets[octet] == "any":
-                        ip_address.append(random.randint(0, 256))
+                        ip_address.append(random.randint(0, 255))
                     else:
                         ip_address.append(int(octets[octet]))
             else:
@@ -130,3 +131,23 @@ class Generator:
             rule.update({"dst-ip": ip_str})
         else:
             pass
+
+    def create_action(self, rule):
+        """ Create action "ALLOW" field of firewall rule if generated number greater
+            then config probability or "DENY" otherwise. """
+        prob = self.config["rule_generator"]["action"]["probability"]
+        value_dict = self.config["rule_generator"]["action"]["values"]
+        if random.random() > prob:
+            rule.update({"action": value_dict["ALLOW"]})
+        else:
+            rule.update({"action": value_dict["DENY"]})
+
+    def create_priority(self, rule):
+        """ Create priority field of firewall rule if generated number greater
+            then config probability or pass otherwise. Values are picked from
+            range[min_value, max_value] """
+        prob = self.config["rule_generator"]["priority"]["probability"]
+        if random.random() > prob:
+            range_values = self.config["rule_generator"]["priority"]["values"]
+            value = random.randint(range_values["min_value"], range_values["max_value"])
+            rule.update({"priority": value})

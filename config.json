@@ -1,13 +1,15 @@
 {
   "controller": {
-    "ip": "127.0.0.1",
+    "ip": "192.168.17.203",
     "port": "8080"
   },
 
   "rule_generator": {
     "switch_id": {
       "probability" : 0.9,
-      "list" : ["1", "2", "3"]
+      "list" : ["00:00:00:00:00:00:00:01",
+                "00:00:00:00:00:00:00:02",
+                "00:00:00:00:00:00:00:03"]
     },
 
     "src_inport" : {
@@ -66,14 +68,22 @@
     },
     "tp_src"   : 0.5,
     "tp_dst"   : 0.5,
+
     "priority" : {
       "probability": 0.2,
-      "min_value": 1,
-      "max_value": 15
+      "values" :{
+        "min_value": 1,
+        "max_value": 15
+      }
     },
+
     "action" : {
       "probability" : 0.5,
-      "values" : ["ALLOW", "DENY"]
+      "values" : {
+        "ALLOW": "ALLOW",
+        "DENY" : "DENY"
+      }
+
     }
   }
 }
