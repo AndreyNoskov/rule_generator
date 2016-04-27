@@ -12,10 +12,13 @@ class Sender:
         self.port = str(config["controller"]["port"])
 
     def send(self, rule):
-        url = 'http://' + self.ip_address + ":" + self.port + '/wm/firewall/rules/json'
-        r = requests.post(url, data=json.dumps(rule))
-        print('-------Response:-------')
-        print(r.text)
-        print('-----------------------\n')
+        try:
+            url = 'http://' + self.ip_address + ":" + self.port + '/wm/firewall/rules/json'
+            r = requests.post(url, data=json.dumps(rule))
+            print('-------Response:-------')
+            print(r.text)
+            print('-----------------------\n')
+        except requests.exceptions.RequestException:
+            print("Connection error while sending rule")
 
 
