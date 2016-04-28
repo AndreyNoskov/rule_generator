@@ -9,11 +9,11 @@ class Sender:
     def __init__(self, config):
         self.config = config
         self.ip_address = config["controller"]["ip"]
-        self.port = str(config["controller"]["port"])
+        self.port_pfw = str(config["controller"]["port_pfw"])
 
     def send(self, rule):
         try:
-            url = 'http://' + self.ip_address + ":" + self.port + '/wm/firewall/rules/json'
+            url = 'http://' + self.ip_address + ":" + self.port_pfw + '/wm/firewall/rules/json'
             r = requests.post(url, data=json.dumps(rule))
             print('-------Response:-------')
             print(r.text)

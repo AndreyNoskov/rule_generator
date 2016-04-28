@@ -11,12 +11,13 @@ class Updater:
     def __init__(self, config):
         self.config = config
         self.controller_ip = self.config["controller"]["ip"]
-        self.controller_port = self.config["controller"]["port"]
+        self.controller_port_rest = self.config["controller"]["port_rest"]
+        self.controller_port_pfw = self.config["controller"]["port_pfw"]
         self.pp = pprint.PrettyPrinter(indent=4)
 
     def update_switches(self):
         try:
-            url = 'http://' + self.controller_ip + ":" + self.controller_port + '/wm/core/controller/switches/json'
+            url = 'http://' + self.controller_ip + ":" + self.controller_port_rest + '/wm/core/controller/switches/json'
             r = requests.get(url)
             if r.status_code == 200:
                 resp_json = json.loads(r.text)
@@ -30,7 +31,7 @@ class Updater:
 
     def update_ips(self):
         try:
-            url = 'http://' + self.controller_ip + ":" + self.controller_port + '/wm/device/'
+            url = 'http://' + self.controller_ip + ":" + self.controller_port_rest + '/wm/device/'
             r = requests.get(url)
             if r.status_code == 200:
                 resp_json = json.loads(r.text)
