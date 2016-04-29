@@ -41,13 +41,13 @@
     },
 
     "src_ip"   : {
-      "probability" : 0.9,
-      "is_local" : 0.8
+      "probability" : 0.2,
+      "is_local" : 0.2
     },
 
     "dst_ip"   : {
       "probability" : 0.6,
-      "is_local" : 0.8
+      "is_local" : 0.2
     },
 
     "nw_proto" : {

@@ -1,10 +1,8 @@
 import requests
 import json
 
-class Sender:
 
-    ip_address = None
-    port_pfw = None
+class Sender:
 
     def __init__(self, config):
         self.config = config
@@ -14,10 +12,10 @@ class Sender:
     def send(self, rule):
         try:
             url = 'http://' + self.ip_address + ":" + self.port_pfw + '/wm/firewall/rules/json'
-            print(url)
+            # print(url)
             r = requests.post(url, data=json.dumps(rule))
             print('-------Response:-------')
-            print(r.status_code)
+            # print(r.status_code)
             print(r.text)
             print('-----------------------\n')
         except requests.exceptions.RequestException:

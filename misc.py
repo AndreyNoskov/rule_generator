@@ -24,7 +24,7 @@ def generate_random_local_ip():
     octets_list.append(random.randint(0, 255))
     octets_list.append(random.randint(0, 255))
     ip_str = str(octets_list[0])
-    for octet in octets_list(1, len(octets_list)):
+    for octet in octets_list[1:len(octets_list)]:
         ip_str += "." + str(octet)
     ip_str += "/32"
     return ip_str
@@ -35,7 +35,7 @@ def generate_random_wide_ip():
     for octet in range(0, 4):
         octets_list.append(random.randint(0, 255))
     ip_str = str(octets_list[0])
-    for octet in range(1, len(octets_list)):
+    for octet in octets_list[1:len(octets_list)]:
         ip_str += "." + str(octet)
     ip_str += "/32"
     return ip_str
