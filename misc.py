@@ -1,5 +1,5 @@
 import random
-
+import statistics
 
 def generate_random_mac(vendor_list):
     vendor_id = random.choice(vendor_list)
@@ -39,3 +39,14 @@ def generate_random_wide_ip():
         ip_str += "." + str(octet)
     ip_str += "/32"
     return ip_str
+
+
+def about_times(times):
+    stat = {}
+    total_time = sum(times)
+    stat.update({"total time": total_time})
+    average = statistics.mean(times)
+    stat.update({"average time": average})
+    st_dev = statistics.stdev(times)
+    stat.update({"STDev time": st_dev})
+    return stat
