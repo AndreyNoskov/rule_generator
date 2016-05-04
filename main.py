@@ -27,8 +27,8 @@ for i in range(number_of_rules):
     print("Rule #" + str(i + 1))
     pp.pprint(rule)
     startTime = time.time()
-    if sender.send(rule):
-        success_counter += 1
+    success_counter += sender.send(rule)
+
     times.append(time.time() - startTime)
 
 print(str(success_counter) + " of " + str(number_of_rules) + " rules was successfully installed")
