@@ -19,9 +19,13 @@ class Sender:
             print(r.text)
             print('-----------------------\n')
             if r.status_code == 200:
-                resp_json = json.loads(r.text)
-                if resp_json["status"] == "Rule added":
-                    return True
+                try:
+                    resp_json = json.loads(r.text)
+                    if resp_json["status"] == "Rule added":
+                        return True
+                except ValueError:  # For Python 3.4. Replace for JSONDecodeError for 3.5+
+                    print("Can not parse response from firewall to JSON format")
+                    return False
             else:
                 return False
         except requests.exceptions.RequestException:
