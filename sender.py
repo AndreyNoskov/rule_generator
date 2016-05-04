@@ -23,6 +23,8 @@ class Sender:
                     resp_json = json.loads(r.text)
                     if resp_json["status"] == "Rule added":
                         return 1 - resp_json["deleted"]
+                    else:
+                        return 0
                 except ValueError:  # For Python 3.4. Replace for JSONDecodeError for 3.5+
                     print("Can not parse response from firewall to JSON format")
                     return 0
