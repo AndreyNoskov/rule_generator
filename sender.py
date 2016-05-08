@@ -21,17 +21,17 @@ class Sender:
             if r.status_code == 200:
                 try:
                     resp_json = json.loads(r.text)
-                    if resp_json["status"] == "Rule added":
-                        return 1 - resp_json["deleted"]
+                    if "status" in resp_json and resp_json["status"] == "Rule added":
+                        return 1, resp_json["deleted"]
                     else:
-                        return 0
+                        return 0, 0
                 except ValueError:  # For Python 3.4. Replace for JSONDecodeError for 3.5+
                     print("Can not parse response from firewall to JSON format")
-                    return 0
+                    return 0, 0
             else:
-                return 0
+                return 0, 0
         except requests.exceptions.RequestException:
             print("Connection error while sending rule")
-            return 0
+            return 0, 0
 
 

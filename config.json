@@ -1,6 +1,6 @@
 {
   "controller": {
-    "ip": "195.168.17.35",
+    "ip": "127.0.0.1",
     "port_pfw": "8090",
     "port_rest": "8080",
     "switch_id": [],
