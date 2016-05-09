@@ -7,6 +7,7 @@ import time
 from misc import about_times
 from plotter import plot_time_per_rule
 
+
 with open('config.json') as config_file:
     config = json.load(config_file)
 
@@ -21,19 +22,21 @@ pp = pprint.PrettyPrinter(indent=4)
 
 installed_counter = 0
 deleted_counter = 0
-number_of_rules = 2000
+number_of_rules = 15000
 times = []
 
-for i in range(number_of_rules):
-    startTime = time.time()
-    rule = generator.create_rule()
-    add_ins, add_del = sender.send(rule)
-    installed_counter += add_ins
-    deleted_counter += add_del
-    times.append(time.time() - startTime)
-
-    print("Rule #" + str(i + 1))
-    pp.pprint(rule)
+timestr = time.strftime("%Y%m%d-%H%M%S")
+with open('./rules_log/' + timestr + '.txt', 'w') as log_file:
+    for i in range(number_of_rules):
+        startTime = time.time()
+        rule = generator.create_rule()
+        add_ins, add_del = sender.send(rule)
+        installed_counter += add_ins
+        deleted_counter += add_del
+        times.append(time.time() - startTime)
+        log_file.write(str(rule) + '\n')
+        print("Rule #" + str(i + 1))
+        pp.pprint(rule)
 
 print(str(installed_counter) + " of " + str(number_of_rules) + \
 	" rules was successfully installed and " + str(deleted_counter) + " was deleted")
