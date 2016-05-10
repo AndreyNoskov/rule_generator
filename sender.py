@@ -22,7 +22,10 @@ class Sender:
                 try:
                     resp_json = json.loads(r.text)
                     if "status" in resp_json and resp_json["status"] == "Rule added":
-                        return 1, resp_json["deleted"]
+                        if "deleted" in resp_json:
+                            return 1, resp_json["deleted"]
+                        else:
+                            return 1, 0
                     else:
                         return 0, 0
                 except ValueError:  # For Python 3.4. Replace for JSONDecodeError for 3.5+

@@ -28,9 +28,8 @@ class Generator:
             rules = log.read().splitlines()
             rules_out = []
             for rule in rules:
-                # rule = json.JSONDecoder.decode(rule)
-                # json_text = json.loads(rule, encoding="utf-8")
-                rules_out.append(rule)
+                j_data = json.loads(str(rule).replace("\'", "\""))
+                rules_out.append(j_data)
         return rules_out
 
     def create_switch_id(self, rule):
