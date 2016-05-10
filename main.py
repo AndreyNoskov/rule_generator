@@ -24,12 +24,15 @@ installed_counter = 0
 deleted_counter = 0
 number_of_rules = 15000
 times = []
+log_name = "./rules_log/20160508-112520.txt"
+rule_list = generator.create_from_file(log_name)
 
-timestr = time.strftime("%Y%m%d-%H%M%S")
-with open('./rules_log/' + timestr + '.txt', 'w') as log_file:
+time_str = time.strftime("%Y%m%d-%H%M%S")
+with open('./rules_log/' + time_str + '.txt', 'w') as log_file:
     for i in range(number_of_rules):
         startTime = time.time()
-        rule = generator.create_rule()
+        # rule = generator.create_rule()
+        rule = rule_list[i]
         add_ins, add_del = sender.send(rule)
         installed_counter += add_ins
         deleted_counter += add_del

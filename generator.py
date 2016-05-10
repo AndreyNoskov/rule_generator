@@ -1,5 +1,6 @@
 import random
 from misc import *
+import json
 
 
 class Generator:
@@ -21,6 +22,16 @@ class Generator:
         self.create_action(rule)
         self.create_priority(rule)
         return rule
+
+    def create_from_file(self, log_path):
+        with open(log_path, "r") as log:
+            rules = log.read().splitlines()
+            rules_out = []
+            for rule in rules:
+                # rule = json.JSONDecoder.decode(rule)
+                # json_text = json.loads(rule, encoding="utf-8")
+                rules_out.append(rule)
+        return rules_out
 
     def create_switch_id(self, rule):
         """ Create switch_id field of firewall rule if generated number greater
