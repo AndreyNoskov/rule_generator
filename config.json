@@ -1,7 +1,7 @@
 {
   "controller": {
     "ip": "127.0.0.1",
-    "port_pfw": "8080",
+    "port_pfw": "8090",
     "port_rest": "8080",
     "switch_id": [],
     "local_ip": []

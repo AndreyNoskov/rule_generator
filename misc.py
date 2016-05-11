@@ -1,6 +1,7 @@
 import random
 import statistics
 
+
 def generate_random_mac(vendor_list):
     vendor_id = random.choice(vendor_list)
     mac = [int(vendor_id[0], 16),
@@ -47,6 +48,9 @@ def about_times(times):
     stat.update({"total time": total_time})
     average = statistics.mean(times)
     stat.update({"average time": average})
-    st_dev = statistics.stdev(times)
-    stat.update({"STDev time": st_dev})
+    if len(times) > 1:
+        st_dev = statistics.stdev(times)
+        stat.update({"STDev time": st_dev})
+    else:
+        stat.update({"STDev time": 0})
     return stat

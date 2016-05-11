@@ -22,10 +22,13 @@ pp = pprint.PrettyPrinter(indent=4)
 
 installed_counter = 0
 deleted_counter = 0
-number_of_rules = 15000
+number_of_rules = 1
 times = []
-log_name = "./rules_log/20160508-112520.txt"
-rule_list = generator.create_from_file(log_name)
+log_name = "./rules_log/20160511-145128.txt"
+try:
+    rule_list = generator.create_from_file(log_name)
+except FileNotFoundError:
+    print("Can not find file " + log_name)
 
 time_str = time.strftime("%Y%m%d-%H%M%S")
 with open('./rules_log/' + time_str + '.txt', 'w') as log_file:
@@ -42,7 +45,7 @@ with open('./rules_log/' + time_str + '.txt', 'w') as log_file:
         pp.pprint(rule)
 
 print(str(installed_counter) + " of " + str(number_of_rules) + \
-	" rules was successfully installed and " + str(deleted_counter) + " was deleted")
+      " rules was successfully installed and " + str(deleted_counter) + " was deleted")
 print(about_times(times))
 plot_time_per_rule(times)
 
