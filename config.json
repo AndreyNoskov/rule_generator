@@ -8,6 +8,13 @@
   },
 
   "rule_generator": {
+
+    "parameters": {
+      "from_file" : 1,
+      "file_name" : "./rules_log/20160511-170903.txt",
+      "number_of_rules": 0
+    },
+
     "switch_id": {
       "probability" : 0.9,
       "def_list" : ["00:00:00:00:00:00:00:01",
